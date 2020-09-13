@@ -70,6 +70,8 @@ func handleCommands(c net.Conn, username string) {
 }
 
 func handleConnection(c net.Conn) {
+	// welcome user
+	c.Write([]byte(string("Welcome to FlexCHAT !!\n")))
 	// get user details
 	username := createUser(c, "Please enter you username: ")
 	// map username to connection
