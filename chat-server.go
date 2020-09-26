@@ -59,8 +59,8 @@ func handleCommands(c net.Conn, username string) {
 		if text == "" {
 			c.Write([]byte(string("You need to say something...\n" + "# ")))
 		} else if text == "QUIT" {
-			c.Write([]byte(string("Thanks for chatting " + username + " !!\nEscape character is '^]'\n")))
-			break
+			c.Write([]byte(string("Thanks for chatting " + username + " !!\n")))
+			c.Close()
 		} else {
 			for _, value := range connmap {
 				value.Write([]byte(string("\n" + username + ": " + text + "\n# ")))
