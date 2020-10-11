@@ -61,6 +61,7 @@ func handleCommands(c net.Conn, username string) {
 		} else if text == "QUIT" {
 			c.Write([]byte(string("Thanks for chatting " + username + " !!\n")))
 			c.Close()
+			delete(connmap, username)
 		} else {
 			for _, value := range connmap {
 				value.Write([]byte(string("\n" + username + ": " + text + "\n# ")))
