@@ -16,11 +16,13 @@ end
 def get_connection(connection)
   loop do
     client, client_addr = connection.accept
-    puts "client connected: #{client_addr.inspect}"
-    data = client.recv(1024)
-    puts "received data: #{data}"
-    client.puts "hello from rubychat\nyou said: #{data}"
-    client.close
+    Thread.new(client, client_addr) do |conn, conn_addr|
+      puts "client connected: #{conn_addr.inspect}"
+      data = conn.recv(1024)
+      puts "received data: #{data}"
+      conn.puts "hello from rubychat\nyou said: #{data}"
+      conn.close
+    end
   end
 end
 
